@@ -1,6 +1,17 @@
 import React,{useState,useEffect} from 'react';
 import axios from 'axios'
 
+
+const Frase = ({frase}) => {
+  const {quote,author} = frase
+  return(
+    <div className="frase">
+      <h1>{quote}</h1>
+      <p>-{author}</p>
+    </div>
+  )
+}
+
 function App() {
   const [frase,obtenerfrase] = useState({}); 
   const consultarAPI = async () => {
@@ -17,7 +28,9 @@ function App() {
 
   console.log(frase) //frase = this.state
   return (
-    <p>{frase.quote}</p>
+    <div className="contenedor">
+      <Frase frase={frase}/>
+    </div>
   );
 }
 
