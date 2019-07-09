@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState,useEffect} from 'react';
+import axios from 'axios'
 
 function App() {
+  const [frase,obtenerfrase] = useState({}); 
+  const consultarAPI = async () => {
+    const resultado = await axios('https://breaking-bad-quotes.herokuapp.com/v1/quotes');
+    // agregar el resultado de la API al state (similar a this.setState)
+    obtenerfrase(resultado.data[0])
+  } 
+  //consulta rest api
+  useEffect(
+    () => {
+      consultarAPI()
+    }, []
+  )
+
+  console.log(frase) //frase = this.state
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <p>{frase.quote}</p>
   );
 }
 
